@@ -1,0 +1,7 @@
+ReadMe For Clustering    
+
+The method uses the so called Spetral Clustering to cluster n users to k groups by thier similarity to each other. 
+The key reasoning behind this is that we assume two users who rated a same movie with similar score will rate another movie similarly.
+In mathematics: for user_i in cluster_c, it's rating for movie_j is missing, then the prediction for user_i to rate movie_j is the mean of existing rating of other users in cluster_c for movie_j.
+
+The key problem is how to cluster users to groups
