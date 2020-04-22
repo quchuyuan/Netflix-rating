@@ -1,0 +1,36 @@
+
+
+Overall reasoning:
+
+The method uses the so-called Matrix Completion Methods to predict the unknown ratings given some portion of explicit ratings.
+The key reasoning behind this is that we assume the ratings of m movies by n users are not linear independent. And some ratings of movies by some users can be represented by other ratings by other users.
+
+In mathematics: Assume we have m movie and n users in the data set. then we have an n by m rating matrix A, such that A[i,j] is the rating of movie j by user i. Then we want to transfer it into a lower-ranked matrix whose rows are all linearly independent. Finally, use these rows to predict unknown values.
+
+The key problem is how to construct the lower-ranked matrix. There are two main problems needed to be solved:
+1. how to define the initial values of unknown data
+2. how to predict new values of unknown data.
+
+diagrammatic summary:
+
+Input: pieces of <movie, user, rating> data, a lower rank K.
+Output:  New prediction matrix A with all rating filled.
+Set 80% of the training set as training data, 20% as validation data.
+Use existing data to give an initial guess of missing ratings.
+Singular value decomposes the matrix A.
+Calculate the new prediction matrix. 
+Use validation data to test the accuracy. Then tune the value of k to find the best accuracy. 
+
+Then the A[i,j] is the rating of movie j by user i
+
+
+Extra detail:
+
+1. The data set is in the form of  <movie, user, rating>, but we are looking for a format that can represent the rating of movie j by user i as a matrix element. So I used the set data structure: users=set();
+movies=set().  And maps to trace the userID with the ith user in set users, also trace the movieID with the jth movie in set movies.
+to achieve the matrix A.
+
+2. One of the trickiest tasks is to give an initial guess of missing ratings. Here I used the following method: for an individual user, there are p movies that are rated, and (m-p) movies are not. The initial guess of the missing ratings is the mean of these p rated movies.
+
+The are many Python libraries providing SVD, here I used Scipy over Numpy since Numpy's SVD cannot choose the value of K. 
+
