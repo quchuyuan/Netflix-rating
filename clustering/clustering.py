@@ -89,13 +89,13 @@ from sklearn.cluster import KMeans
 from sklearn import metrics
 ks=np.array(keylist)
 
-sp_kmeans50 = KMeans(n_clusters=50).fit(vec_o)
-len(sp_kmeans50.labels_)
+sp_kmeans10 = KMeans(n_clusters=10).fit(vec_o)
+len(sp_kmeans10.labels_)
 
 clusters={0:[]}
 for i in range(0,userLen-1):
   us=keylist[i]
-  lable=sp_kmeans50.labels_[i]
+  lable=sp_kmeans10.labels_[i]
   if lable in clusters:
     lt=clusters[lable]
     lt.append(us)
@@ -104,10 +104,10 @@ for i in range(0,userLen-1):
     clusters[lable]=lt
 
 predict={1:{}}
-for i in range(2,50):
+for i in range(2,10):
   predict[i]={}
 
-for i in range(1,50):
+for i in range(1,10):
   for movie in movies:
     subsum=0
     ct=0
@@ -135,7 +135,7 @@ len(testlist)
 for ps in testlist:
   movie=int(ps[0])
   user=ps[1]
-  for group in range(1,50):
+  for group in range(1,10):
     if user in clusters[group]:
       diction=predict[group]
       ps.append(round(diction.get(movie,3), 2))
